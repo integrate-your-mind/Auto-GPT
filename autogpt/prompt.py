@@ -105,6 +105,15 @@ def get_prompt() -> str:
             ),
         )
 
+    # Smart Contract commands
+    # Create new hardhat project
+    commands.append(
+        (
+            "Create Hardhat Project", "create_hardhat_project", {
+                "project_name": "<project_name>"}
+        )
+    )
+
     # Add these command last.
     commands.append(
         ("Do Nothing", "do_nothing", {}),

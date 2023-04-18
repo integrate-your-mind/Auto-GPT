@@ -88,6 +88,19 @@ def execute_python_file(file: str):
         return f"Error: {str(e)}"
 
 
+def create_hardhat_project(project_name: str) -> str:
+    """Create a new Hardhat project
+
+    Args:
+        project_name (str): The name of the project to create
+
+    Returns:
+        str: The output of the command
+    """
+    command_line = f"npx hardhat"
+    return execute_shell(command_line)
+
+
 def execute_shell(command_line: str) -> str:
     """Execute a shell command and return the output
 
@@ -104,8 +117,13 @@ def execute_shell(command_line: str) -> str:
 
     print(f"Executing command '{command_line}' in working directory '{os.getcwd()}'")
 
-    result = subprocess.run(command_line, capture_output=True, shell=True)
-    output = f"STDOUT:\n{result.stdout}\nSTDERR:\n{result.stderr}"
+    try:
+      result = subprocess.run(command_line, capture_output=True, shell=True)
+      output = f"STDOUT:\n{result.stdout}\nSTDERR:\n{result.stderr}"
+    except result.CalledProcessError as e:
+        print(f"Error occurred while executing shell command: {e}")
+    except Exception as e:
+        print(f"Error: {e}")
 
     # Change back to whatever the prior working dir was
 
